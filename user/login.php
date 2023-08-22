@@ -1,0 +1,98 @@
+<?php
+    include "../database/dbconnection.php";
+
+    $error = "";
+    $email = $password = "";
+
+    if(isset($_POST['submit'])) {
+
+        if (isset($_POST['email']))   $email = sanitizeMySQL($connection,  $_POST['email']);
+        if (isset($_POST['password']))  $password = sanitizeMySQL($connection,  $_POST['password']);
+
+        $error = validate($connection, $email, $password);
+
+        if ($error=="") {
+            echo "<script>alert('you have successfully logined');</script>";
+            $email = ""; $password = "";
+        }
+
+    }
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <form action="login.php" method="post" novalidate id="form">
+            <h1>Login</h1>
+            <?php if (!empty($error)) { ?>
+                <div class="error-box"><?php echo $error; ?></div>
+            <?php } ?>
+            <div class="box">
+                <label for="email">Email</label><br>
+                <input type="email" name="email" value="<?php echo $email; ?>"><br>
+            </div>
+            <div class="box">
+                <label for="password">Password</label><br>
+                <input type="password" name="password"value="<?php echo $password; ?>" ><br>
+            </div>
+            <div class="box">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div class="box">
+                <input type="submit" value="Login" name="submit">
+            </div>
+
+            <div class="box">
+                Don't have an account? <a href="register.php">Register here</a>
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>
+
+<?php
+
+    function sanitizeString($var) {
+        $var = stripslashes($var);
+        $var = strip_tags($var);
+        $var = htmlentities($var);
+        return $var;
+    }
+    function sanitizeMySQL($connection, $var){ 
+        $var = mysqli_real_escape_string($connection, $var);
+        $var = sanitizeString($var);
+        return $var;
+    }
+
+    function validate($connection, $email, $password) {
+        $hash_pass = hash('ripemd128', $password);
+
+        $result = getUser($connection, $email, $hash_pass);
+        
+        if (mysqli_num_rows($result)==0) {
+            return "Invalid username or password!";
+        }
+        return "";
+
+    }
+
+    function getUser($connection, $email, $password) {
+        $sql = "SELECT * FROM user WHERE email='$email' AND password='$password'";
+        $result = mysqli_query($connection, $sql);
+        return $result;
+    }
+
+
+
+
+?>

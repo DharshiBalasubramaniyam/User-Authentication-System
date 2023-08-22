@@ -1,6 +1,5 @@
 <?php
     include "../database/dbconnection.php";
-    // echo "<script> alert('Your registration is successfull. Login now.') </script>";
 
 
     $usernameError = $genderError = $emailError = $passwordError = $cpasswordError = $agreeError = "";
@@ -25,7 +24,7 @@
 
 
         if ($usernameError=="" && $genderError ==""  && $emailError =="" && $passwordError=="" && $cpasswordError =="" && $agreeError =="") {
-            $pass = hash('ripemd128', '$password');
+            $pass = hash('ripemd128', $password);
             $usernameError = checkUsername($connection, $username);
             $emailError = checkEmail($connection, $email);
 
@@ -90,7 +89,7 @@
             </div>
 
             <div class="box">
-                Already a member? <a href="#">Login here</a>
+                Already a member? <a href="login.php">Login here</a>
             </div>
             
         </form>

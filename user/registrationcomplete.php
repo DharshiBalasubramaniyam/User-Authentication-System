@@ -11,7 +11,7 @@
         <div class="message-box">
             <h1>Registration Complete!</h1>
             <h4>Thank you for registering on coding. You are almost done.</h4>
-            <a href="login.html"><button>Login Now</button></a>
+            <a href="login.php"><button>Login Now</button></a>
         </div>
     </div>
 </body>

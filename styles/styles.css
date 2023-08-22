@@ -95,11 +95,11 @@
     text-align: center;
     color: var(--darkpurple);
 }
-.container form .box:last-child a {
+.container form .box a {
     color:var(--purple);
     transition: 0.3s;
 }
-.container form .box:last-child a:hover {
+.container form .box a:hover {
     color: var(--darkpurple);
 }
 
@@ -108,15 +108,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px;
+    width: 98%;
+    max-width: 500px;
 }
 .container .message-box h1 {
     color: white;
+    text-align: center;
 }
 .container .message-box h4 {
     color: white;
     font-size: 20px;
     margin: 25px 0;
+    text-align: center;
 }
 .container .message-box button {
     padding: 7px 25px;
@@ -126,9 +129,19 @@
     cursor: pointer;
     font-size: 18px;
     border-radius: 20px;
+    margin: 0 15px;
 }
 .container .message-box button:hover {
     opacity: 0.9;
+}
+
+.container form .error-box {
+    color: red;
+    background-color: rgb(255, 231, 231);
+    padding: 7px 0;
+    text-align: center;
+    margin-top: 8px;
+    border-radius: 4px;
 }
 
 
