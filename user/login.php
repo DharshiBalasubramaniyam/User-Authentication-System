@@ -12,8 +12,17 @@
         $error = validate($connection, $email, $password);
 
         if ($error=="") {
-            echo "<script>alert('you have successfully logined');</script>";
-            $email = ""; $password = "";
+            session_start();
+
+            $result = getUser($connection, $email, $password);
+            $user = mysqli_fetch_assoc($result);
+
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['gender'] = $user['gender'];
+            $_SESSION['email'] = $email;
+            $_SESSION['password'] = $user['password'];
+            $_SESSION['regdate'] = $user['reg_date'];
+            header("location: ../index.php");
         }
 
     }
@@ -75,9 +84,8 @@
     }
 
     function validate($connection, $email, $password) {
-        $hash_pass = hash('ripemd128', $password);
 
-        $result = getUser($connection, $email, $hash_pass);
+        $result = getUser($connection, $email, $password);
         
         if (mysqli_num_rows($result)==0) {
             return "Invalid username or password!";
@@ -87,7 +95,8 @@
     }
 
     function getUser($connection, $email, $password) {
-        $sql = "SELECT * FROM user WHERE email='$email' AND password='$password'";
+        $hash_pass = hash('ripemd128', $password);
+        $sql = "SELECT * FROM user WHERE email='$email' AND password='$hash_pass'";
         $result = mysqli_query($connection, $sql);
         return $result;
     }

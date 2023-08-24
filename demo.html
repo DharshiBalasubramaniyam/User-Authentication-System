@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="content">
+        <div class="nav-bar">
+            <div class="logo">Coding</div>
+            <form action="home.php" method="post">
+                <input type="submit" name="viewProfile" value="Profile">
+                <input type="submit" name="logout" value="Log out">
+            </form> 
+            <img src="menu bar.png" onclick="displayMenu()">
+        </div>
+        <div class="content-box">
+            <h1>Hello, <span class="username">John!</span></h1>
+            <p>We warmly welcome to our site.</p>
+        </div>
+    </div>
+
+    <script>
+        function displayMenu() {
+            let form = document.querySelector("form");
+            console.log(form);
+
+            if (!form.classList.contains("active")){
+                form.classList.add("active");
+            }
+            else {
+                form.classList.remove("active");
+            }
+        }
+    </script>
+</body>
+</html>
