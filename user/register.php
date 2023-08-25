@@ -45,10 +45,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/styles.css">
-    <title>Register</title>
+    <title>Register - Coding.</title>
 </head>
 <body>
     <div class="container">
+        <h1 class="logo">#Coding.</h1>
         <form action="register.php" method="post" novalidate id="form">
             <h1>Register</h1>
             <div class="box">

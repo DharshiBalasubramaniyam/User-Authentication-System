@@ -16,6 +16,7 @@
 }
 
 .container {
+    position: relative;
     width: 100%;
     height: 100vh;
     background-color: var(--purple);
@@ -30,7 +31,7 @@
     padding: 10px;
     border-radius: 4px;
 }
-.container form h1 {
+h1 {
     text-align: center;
     color:var(--darkpurple);
 }
@@ -95,16 +96,17 @@
     text-align: center;
     color: var(--darkpurple);
 }
-.container form .box a {
+a {
     color:var(--purple);
     transition: 0.3s;
 }
-.container form .box a:hover {
+a:hover {
     color: var(--darkpurple);
 }
 
 
 .container .message-box {
+    margin-top: -200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -142,6 +144,55 @@
     text-align: center;
     margin-top: 8px;
     border-radius: 4px;
+}
+
+.container .logo {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    font-size: 35px;
+    color: var(--lightpurple);
+}
+
+
+/* user profile styles */
+.container .profile{
+    background-color: var(--white);
+    padding: 15px;
+    width: 98%;
+    max-width: 500px;
+}
+.container .profile .image{
+    display: flex;
+    justify-content: center;
+    padding: 0 0;
+}
+.container .profile .image .img {
+    background-color: #e1b8ff;
+    color: var(--darkpurple);
+    text-align: center;
+    line-height: 80px;
+    font-size: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.container .profile .details {
+    width: 100%;
+}
+.container .profile .details .box {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: var(--darkpurple);
+}
+.container .profile .details .box .title {
+    font-weight: 600;
+}
+.container .profile .details .box .data {
+    border: 2px solid var(--lightpurple);
+    padding: 7px 10px;
+    border-radius: 4px;
+
 }
 
 
