@@ -16,15 +16,15 @@
 
     $mail->SMTPAuth = true;
 
-    $mail->Username = 'bdharshi1685@gmail.com';
+    $mail->Username = ''; //your email
 
-    $mail->Password = 'vdcjkgpzhguhqopu';
+    $mail->Password = ''; //your password
 
     $mail->SMTPSecure = 'ssl';
 
     $mail->Port = 465;
 
-    $mail->setFrom('bdharshi1685@gmail.com');
+    $mail->setFrom(''); //your email
 
     $mail->addAddress("{$_SESSION['email']}");
 
