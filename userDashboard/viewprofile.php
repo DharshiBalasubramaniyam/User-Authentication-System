@@ -20,7 +20,7 @@
         <div class="profile">
                 <h1>Your Profile</h1>
                 <a href="index.php">Go to Home</a>
-                <div class="image"><div class="img">R</div></div>
+                <div class="image"><div class="img"><?php echo $initial; ?></div></div>
                 <div class="details">
                     <div class="box"><div class="title">Username</div><div class="data"><?php echo  $_SESSION['username']; ?></div></div>
                     <div class="box"><div class="title">Email</div><div class="data"><?php echo  $_SESSION['email']; ?></div></div>

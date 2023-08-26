@@ -1,52 +1,49 @@
 <?php
 
     session_start();
-    include "database/dbconnection.php";
+    include "../database/dbconnection.php";
 
-    $curpassError = $newpassError = $confirmpassError = $curpass = $newpass = $confirmpass = "";
+    $newpassError = $confirmpassError = $newpass = $confirmpass = "";
 
     if(isset($_POST['submit'])) {
 
-        if (isset($_POST['curpass']))  $curpass = sanitizeMySQL($connection,  $_POST['curpass']);
         if (isset($_POST['newpass']))  $newpass = sanitizeMySQL($connection,  $_POST['newpass']);
         if (isset($_POST['confirm']))   $confirmpass = sanitizeMySQL($connection,  $_POST['confirm']);
         
-        $curpassError = validate_curpass($curpass);
         $newpassError = validate_newpass($newpass);
         $confirmpassError = validate_confirmpass($newpass, $confirmpass);
         
 
-        if ($curpassError=="" && $newpassError ==""  && $confirmpassError =="") {
+        if ($newpassError ==""  && $confirmpassError =="") {
             $pass = hash('ripemd128', $newpass);
 
             if(changePassword($connection, $newpass)) {
-                $curpass = $newpass = $confirmpass = "";
-                // header("location: registrationcomplete.php");
+                $newpass = $confirmpass = "";
+                session_destroy();
+                echo "<script>alert('you have successfully changed your password!');</script>";
+                header("location:login.php");
             }   
         }    
     }
 
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/styles.css">
-    <title>Change Password - Coding.</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <title>Reset Password - Coding.</title>
 </head>
 <body>
     <div class="container">
         <div class="logo">#Coding.</div>
-        <form action="changePassword.php" method="post" novalidate id="form">
+        <form action="resetPassword.php" method="post" novalidate id="form">
             <h1>Change password</h1>
-            <br><a href="viewprofile.php">Back</a>
-            <div class="box">
-                <label>Current Password</label><br>
-                <input type="password" name="curpass" value="<?php echo $curpass; ?>"><br>
-                <small class="error"><?php echo "$curpassError"; ?></small>
-            </div>
+            <div class="box" style="text-align: center;"><?php echo $_SESSION['email']; ?>, Now you can reset your password and log in.</div>
             <div class="box">
                 <label>New Password</label><br>
                 <input type="password" name="newpass" value="<?php echo $newpass; ?>" ><br>
@@ -58,11 +55,14 @@
                 <small class="error"><?php echo "$confirmpassError"; ?></small>
             </div>
             <div class="box">
-                <input type="submit" value="Submit" name="submit">
+                <input type="submit" value="Reset password" name="submit">
             </div>
+
+            <a href="login.php">Back to login</a>
             
         </form>
     </div>
+    
 </body>
 </html>
 
@@ -80,16 +80,6 @@
         $var = mysqli_real_escape_string($connection, $var);
         $var = sanitizeString($var);
         return $var;
-    }
-
-    function validate_curpass($field) {
-        if ($field == "") {
-            return "Current password is required!";
-        }
-        else if (hash('ripemd128', $field)!= $_SESSION['password']){
-            return "Incorrect current password";
-        }
-        return "";
     }
 
     function validate_newpass($field) {
@@ -131,7 +121,6 @@
                         WHERE email = '{$_SESSION['email']}'";
         $result = mysqli_query($connection, $updateSql);
         if ($result) {
-            $_SESSION['password'] = $hashed;
             return true;
         }else {
             echo "cannot change the password!";

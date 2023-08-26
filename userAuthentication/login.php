@@ -22,7 +22,7 @@
             $_SESSION['email'] = $email;
             $_SESSION['password'] = $user['password'];
             $_SESSION['regdate'] = $user['reg_date'];
-            header("location: ../index.php");
+            header("location: ../userDashboard/index.php");
         }
 
     }
@@ -55,7 +55,7 @@
                 <input type="password" name="password"value="<?php echo $password; ?>" ><br>
             </div>
             <div class="box">
-                <a href="#">Forgot Password?</a>
+                <a href="forgotPassword.php">Forgot Password?</a>
             </div>
             <div class="box">
                 <input type="submit" value="Login" name="submit">

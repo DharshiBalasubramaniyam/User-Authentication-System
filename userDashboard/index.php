@@ -30,7 +30,7 @@
                     <a href="viewprofile.php"><button>View Profile</button></a>
                     <a href="logout.php"><button>Log out</button></a>
                 <?php } else { ?>
-                    <a href="user/login.php"><button>Sign in</button></a>
+                    <a href="../userAuthentication/login.php"><button>Sign in</button></a>
                 <?php }  ?>   
             </div>
 
